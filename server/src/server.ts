@@ -10,6 +10,7 @@ app.use(cors())
 const prisma = new PrismaClient({log:['query']});
 
 app.get('/games', async (request, response) => {
+  console.log("DATABASE_URL: ", process.env.DATABASE_URL)
   const games = await prisma.game.findMany({
     include:{
       _count: {
@@ -41,6 +42,23 @@ app.post('/games/:id/ads', async (request, response) => {
   return response.status(201).json(ad);
 });
 
+app.get('/ads/:id/discord', async (request, response) => {
+  const adId = request.params.id;
+
+  const ad = await prisma.ad.findUniqueOrThrow({
+    select: {
+      discord: true,
+    },
+    where: {
+      id: adId
+    }
+  })
+
+  return response.json({
+    discord: ad.discord,
+  })
+});
+
 app.get('/games/:id/ads', async (request,response) => {
   const gameId = request.params.id;
   const ads = await prisma.ad.findMany({
@@ -70,22 +88,8 @@ app.get('/games/:id/ads', async (request,response) => {
   }));
 });
 
-app.get('/ads/:id/discord', async (request, response) => {
-  const adId = request.params.id;
 
-  const ad = await prisma.ad.findUniqueOrThrow({
-    select: {
-      discord: true,
-    },
-    where: {
-      id: adId
-    }
-  })
-
-  return response.json({
-    discord: ad.discord,
-  })
-});
 
 app.listen(3333)
+
 
