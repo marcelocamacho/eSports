@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {useRoute} from '@react-navigation/native'
 import {Entypo} from '@expo/vector-icons'
-import { Background } from '../../components/Background';
+import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
+import {SERVER_URL} from '@env';
 import {useNavigation} from '@react-navigation/native';
+
 import logoImg from '../../assets/logo-nlw-esports.png';
 import { styles } from './styles';
 import { GameParams } from '../../@types/navigation';
-import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
 import { THEME } from '../../theme';
+import { Background } from '../../components/Background';
 import { Heading } from '../../components/Heading';
 import { DuoCard, DuoCardProps } from '../../components/DuoCard';
-
-
 
 export function Game() {
   const navigation = useNavigation();
@@ -26,7 +26,7 @@ export function Game() {
   }
 
   useEffect(()=>{
-    fetch(`http://10.209.24.222:3333/games/${game.id}/ads`)
+    fetch(`${SERVER_URL}/games/${game.id}/ads`)
     .then(response => response.json())
     .then(data => setDuos(data))
   },[])

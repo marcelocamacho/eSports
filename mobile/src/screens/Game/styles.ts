@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     flexDirection:'row',
     alignItems:'center',
     paddingHorizontal:32,
-    marginTop:28,
+    marginTop:22,
     justifyContent:'space-between'
   },
   logo: {
@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
     width:311,
     height:160,
     borderRadius:8,
-    marginTop:32
+    marginTop:24
   },
   containerList:{
     width: '100%'

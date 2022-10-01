@@ -2,14 +2,14 @@ import React, { useEffect,useState } from 'react';
 import { Image, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native'
+import {SERVER_URL} from '@env';
 import logoImg from '../../assets/logo-nlw-esports.png'
 import { Background } from '../../components/Background';
 import { GameCard, GameCardProps } from '../../components/GameCard';
 import { Heading } from '../../components/Heading';
 import { styles } from './styles';
-
+ 
 export function Home() {
-
 const [games, setGames] = useState<GameCardProps[]>([]);
 const navigation = useNavigation();
 
@@ -18,7 +18,7 @@ function handleOpenGame({id, title, bannerUrl}:GameCardProps){
 }
 
 useEffect(()=>{
-  fetch('http://10.209.24.222:3333/games')
+  fetch(`${SERVER_URL}/games`)
   .then(response => response.json())
   .then(data => setGames(data))
 },[])
